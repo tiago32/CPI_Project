@@ -92,6 +92,7 @@
             this.Controls.Add(this.button2);
             this.Name = "Form1";
             this.Text = "Criador de Planos de Intervenção - CPI";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

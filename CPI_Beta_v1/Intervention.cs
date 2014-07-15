@@ -6,7 +6,8 @@ namespace CPI_Beta_v1
     public class Intervention
     {
 
-        private String _identifier;
+        private String _id_manutencao;
+        private String _id_equipamento;
         private String _description;
         private List<DateTime> _markedInterventionsList;
         private Int16 _numberId;
@@ -14,7 +15,8 @@ namespace CPI_Beta_v1
 
         public Intervention()
         {
-            _identifier = string.Empty;
+            _id_manutencao = string.Empty;
+            _id_equipamento = string.Empty;
             _description = string.Empty;
             _markedInterventionsList = new List<DateTime>();
             _numberId = 0;
@@ -22,10 +24,16 @@ namespace CPI_Beta_v1
 
         }
 
-        public string Identifier
+        public string ID_Manutencao
         {
-            get { return _identifier; }
-            set { _identifier = value; }
+            get { return _id_manutencao; }
+            set { _id_manutencao = value; }
+        }
+
+        public string ID_Equipamento
+        {
+            get { return _id_manutencao; }
+            set { _id_manutencao = value; }
         }
 
         public string Description

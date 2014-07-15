@@ -17,11 +17,11 @@ namespace CPI_Beta_v1
         {
             if (textBox1.Text == null) return;
 
-            var lines = File.ReadAllLines(textBox1.Text, Encoding.Default);
-            var txtHandler = new TxtHandler();
-            var list = txtHandler.BuildInterventions(lines);
+            //var lines = File.ReadAllLines(textBox1.Text, Encoding.Default);
+            //var txtHandler = new TxtHandler();
+            //var list = txtHandler.BuildInterventions(lines);
             var excelBuilder = new ExcelBuilder();
-            excelBuilder.GenerateExcel(list,dateTimePicker1.Value.Year);
+            //excelBuilder.GenerateExcel(list,dateTimePicker1.Value.Year);
         }
 
         private void textBox1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -41,6 +41,11 @@ namespace CPI_Beta_v1
                 textBox1.Text = openFileDialog1.FileName;
 
             }
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
 
         }
     }

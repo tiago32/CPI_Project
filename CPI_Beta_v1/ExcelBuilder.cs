@@ -40,7 +40,7 @@ namespace CPI_Beta_v1
                 //Builds an bidimensional array with the identifier and description of each intervention
                 foreach (var intervention in interventionsList)
                 {
-                    interventionsIdDescription[index, 0] = intervention.Identifier;
+                    //interventionsIdDescription[index, 0] = intervention.Identifier;
                     interventionsIdDescription[index, 1] = intervention.Description;
                     index++;
 
