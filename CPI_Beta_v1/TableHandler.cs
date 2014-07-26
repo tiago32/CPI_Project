@@ -9,61 +9,34 @@ namespace CPI_Beta_v1
 {
     public class TableHandler
     {
-        public List<Intervention> BuildInterventions(DataTable dt)
+        /// <summary>
+        /// Creates a list of equipments and their interventions from a DataTable with the information
+        /// </summary>
+        /// <param name="dt">DataTable containing the equipments</param>
+        /// <returns>Equipment list with the interventions</returns>
+        public List<Equipment> BuildInterventions(DataTable dt)
         {
-            var majorList = new List<Intervention>();
+            //Main list to be returned
+            var majorList = new List<Equipment>();
 
-            ////The first line of the file is the header.
-            //var first = true;
-
-
-
-            //Split each line.
+            //Process each DataTable row
             foreach (DataRow row in dt.Rows)
             {
-                ////To discard the header file.
-                //if (first || array[2] == string.Empty)
-                //{
-                //    first = false;
-                //    continue;
-                //}
-                //Find an intervention by the identifier in majorList to add dates intervention. 
-                //If the result is null then create a new one.
-                var intervention = majorList.FirstOrDefault(m => m.ID_Manutencao.Equals(row["id_equipamento"].ToString()));
-                if (intervention == null)
+                //Find an equipment by the identifier in majorList to add intervention dates 
+                //If the result is null then create a new one
+                var eq = majorList.FirstOrDefault(e => e.ID_Equipamento.Equals(row["ID Equipamento"].ToString()));
+                if (eq == null)
                 {
-                    intervention = new Intervention { ID_Manutencao = row["id_manutencao"].ToString(), ID_Equipamento = row["id_equipamento"].ToString(), Description = row["designacao"].ToString() };
-                    //try
-                    //{
-                    //    //Selects the number contained in the identifier to serve in the ranking list.
-                    //    intervention.NumberId = Int16.Parse(Regex.Match(array[0], @"\d+").Value);
-                    //}
-                    //catch (FormatException exception)
-                    //{
-
-                    //    Console.WriteLine(exception.Message);
-                    //}
-
-                    majorList.Add(intervention);
+                    eq = new Equipment { ID_Equipamento = row["ID Equipamento"].ToString(), NumeroInventario = row["Número de Inventário"].ToString(), EqDescription = row["Designação"].ToString(), NumeroSerie = row["Número de Série"].ToString(), Periodicidade = row["Periodicidade de Manutenção"].ToString() };
+                    majorList.Add(eq);
                 }
-                try
-                {
-                    ////Parse the date in portuguese culture.
-                    //_cultureInfo = new CultureInfo("pt-PT");
-
-                    ////Date format pattern.
-                    //_ddMmmYy = "dd-MMM-yy";
-
-                    intervention.MarkedInterventionsList.Add(DateTime.Parse(row["data_agendada"].ToString()));
-                }
-                catch (FormatException exception)
-                {
-
-                    Console.WriteLine(exception.Message);
-                }
+                //Intervention Information (Scheduled Date, Performed Date, Decision)
+                DateTime? scheduled; if (string.IsNullOrEmpty(row["data_agendada"].ToString())) { scheduled = null; } else { scheduled = DateTime.Parse(row["data_agendada"].ToString()); }
+                DateTime? performed; if (string.IsNullOrEmpty(row["data_realizada"].ToString())) { performed = null; } else { performed = DateTime.Parse(row["data_realizada"].ToString()); }
+                eq.InterventionsList.Add(new Tuple<DateTime?, DateTime?, string>(scheduled, performed, row["decisao"].ToString()));
             }
-            //Sorts the list in ascending order of NumberId.
-            return majorList.OrderBy(x => x.NumberId).ToList();
+            //Sorts the list in ascending order of NumeroInventario
+            return majorList.OrderBy(x => x.NumeroInventario).ToList();
 
         }
     }
