@@ -13,6 +13,8 @@ namespace CPI_Beta_v1
         /// Creates a list of equipments and their interventions from a DataTable with the information
         /// </summary>
         /// <param name="dt">DataTable containing the equipments</param>
+        /// <param name="tipoRelatorio">Tipo do relatório de manutenções</param>
+        /// <param name="ano">Ano do relatório de manutenções</param>
         /// <returns>Equipment list with the interventions</returns>
         public List<Equipment> BuildInterventions(DataTable dt)
         {
